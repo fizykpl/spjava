@@ -1,21 +1,21 @@
-dn: ou=wftims,o=Politechnika Lodzka,c=PL
+dn: ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL
 objectClass: organizationalUnit
-ou: wftims
+ou: Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej
 structuralObjectClass: organizationalUnit
 
-dn: ou=studenci,ou=wftims,o=Politechnika Lodzka,c=PL
+dn: ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL
 objectClass: organizationalUnit
 ou: studenci
 structuralObjectClass: organizationalUnit
 
-dn: ou=list,ou=wftims,o=Politechnika Lodzka,c=PL
+dn: ou=list,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL
 objectClass: organizationalUnit
 ou: list
 userPassword: listerine
 description: Konto stosowane do listowania innych kont
 structuralObjectClass: organizationalUnit
 
-dn: cn=Kowalski Jan,ou=studenci,ou=wftims,o=Politechnika Lodzka,c=PL
+dn: cn=Kowalski Jan [ 123456 ],ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL
 objectClass: labeledURIObject
 objectClass: inetOrgPerson
 objectClass: person
@@ -48,7 +48,7 @@ sn: Kowalski
 userPassword: haslojanko
 structuralObjectClass: inetOrgPerson
 
-dn: cn=Nowak,ou=studenci,ou=wftims,o=Politechnika Lodzka,c=PL
+dn: cn=Nowak Anna [ 123123 ],ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL
 objectClass: labeledURIObject
 objectClass: inetOrgPerson
 objectClass: person

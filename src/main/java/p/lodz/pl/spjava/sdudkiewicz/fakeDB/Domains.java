@@ -5,6 +5,7 @@
  */
 package p.lodz.pl.spjava.sdudkiewicz.fakeDB;
 
+import p.lodz.pl.spjava.sdudkiewicz.domain.Domain;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

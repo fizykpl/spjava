@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package p.lodz.pl.spjava.sdudkiewicz.fakeDB;
+package p.lodz.pl.spjava.sdudkiewicz.domain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import org.thymeleaf.util.ArrayUtils;
+import p.lodz.pl.spjava.sdudkiewicz.fakeDB.Domains;
 
 /**
  *
@@ -23,10 +24,6 @@ public class Domain {
     private boolean active;
     private String printUsers;
     public Set<String> users = new HashSet<String>();
-
-    ;
-
-
 
     public Domain() {
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package p.lodz.pl.spjava.sdudkiewicz.fakeDB;
+package p.lodz.pl.spjava.sdudkiewicz.domain;
 
 import java.util.Objects;
 
