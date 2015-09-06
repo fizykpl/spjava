@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package p.lodz.pl.spjava.sdudkiewicz.utils;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
@@ -25,23 +21,28 @@ import p.lodz.pl.spjava.sdudkiewicz.user.User;
  */
 public class UsersUtils {
 
+    private static final Logger LOGGER = Logger.getLogger(UsersUtils.class.getName());
+
     public static List<User> getUsers() {
         List<User> users = new ArrayList<User>();
         Hashtable env = new Hashtable();
 
         env.put(Context.INITIAL_CONTEXT_FACTORY,
                 "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldap://127.0.0.1:33389/dc=springframework,dc=org");
-//		env.put(Context.SECURITY_AUTHENTICATION, "simple");
-//		env.put(Context.SECURITY_PRINCIPAL, "uid=admin,ou=system");
-//		env.put(Context.SECURITY_CREDENTIALS, "secret");
+//        env.put(Context.PROVIDER_URL, "ldap://127.0.0.1:33389/dc=springframework,dc=org");
+        env.put(Context.PROVIDER_URL, "ldap://studdev.zsk.p.lodz.pl:389/ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL");
+        env.put(Context.SECURITY_AUTHENTICATION, "simple");
+        env.put(Context.SECURITY_PRINCIPAL, "ou=list,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL");
+        env.put(Context.SECURITY_CREDENTIALS, "listerine");
         DirContext ctx = null;
         NamingEnumeration results = null;
         try {
             ctx = new InitialDirContext(env);
             SearchControls controls = new SearchControls();
-            controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            results = ctx.search("", "(objectclass=person)", controls);
+//            controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+            controls.setSearchScope(SearchControls.OBJECT_SCOPE);
+//            controls.setSearchScope(SearchControls.ONELEVEL_SCOPE);
+            results = ctx.search("", "(objectclass=organizationalUnit)", controls);
             while (results.hasMore()) {
                 SearchResult searchResult = (SearchResult) results.next();
                 Attributes attributes = searchResult.getAttributes();
@@ -49,11 +50,15 @@ public class UsersUtils {
                 String cn = (String) attr.get();
                 Attribute attr1 = attributes.get("uid");
                 String uid = (String) attr1.get();
-                users.add(new User(cn, uid));
-                System.out.println(" Person Common Name = " + cn + " uid = " + uid);
+                User u = new User(cn, uid);
+                users.add(u);
+
+                LOGGER.info("Found User " + u.toString());
             }
         } catch (NamingException e) {
+            LOGGER.warning(e.getMessage());
             throw new RuntimeException(e);
+
         } finally {
             if (results != null) {
                 try {

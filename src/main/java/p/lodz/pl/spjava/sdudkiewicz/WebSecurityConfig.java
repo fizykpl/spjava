@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .userDnPatterns("uid={0},ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL")
 //                    .contextSource()
 ////                           .root("ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL")
-//                           .ldif("classpath:content.ldif");
+//                           .ldif("classpath:content.ldif").;
 //            
             auth
                     .ldapAuthentication()

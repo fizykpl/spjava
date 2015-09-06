@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import p.lodz.pl.spjava.sdudkiewicz.domain.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.fakeDB.Domains;
+import p.lodz.pl.spjava.sdudkiewicz.user.User;
+import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 /**
  *
@@ -21,24 +23,42 @@ import p.lodz.pl.spjava.sdudkiewicz.fakeDB.Domains;
  */
 @Controller
 public class UserController {
-    private static final Logger LOGGER = Logger.getLogger( UserController.class.getName() );
-    
+
+    private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String greetingForm(Model model, Principal principal) {
         LOGGER.info(model.toString());
         LOGGER.info(principal.toString());
         String name = principal.getName();
-        List<Domain> domains= Domains.getDomains(name);
+        List<Domain> domains = Domains.getDomains(name);
         model.addAttribute("domain", new Domain("java", "01", true, "bob", "agata"));
         if (Domains.containsUser(principal.getName())) {
             model.addAttribute("name", principal.getName());
         } else {
             model.addAttribute("name", "Anonymus");
-        }      
-        
-        
+        }
+
         LOGGER.info(model.toString());
         return "user";
     }
+
+    @RequestMapping(value = "/userList", method = RequestMethod.GET)
+    public String userList(Model model, Principal principal) {
+        LOGGER.info(model.toString());
+        LOGGER.info(principal.toString());
+        List<User> users = UsersUtils.getUsers();
+//        String name = principal.getName();
+//        List<Domain> domains = Domains.getDomains(name);
+        model.addAttribute("users", users);
+//        if (Domains.containsUser(principal.getName())) {
+//            model.addAttribute("name", principal.getName());
+//        } else {
+//            model.addAttribute("name", "Anonymus");
+//        }
+
+        LOGGER.info(model.toString());
+        return "userList";
+    }
+
 }
