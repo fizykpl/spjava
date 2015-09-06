@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import org.thymeleaf.util.ArrayUtils;
 
 /**
  *
@@ -18,10 +19,12 @@ import java.util.Set;
  */
 public class Domain {
 
-    public String name;
-    public String number;
+    private Subject subject;
     private boolean active;
-    public Set<String> users = new HashSet<String>();;
+    private String printUsers;
+    public Set<String> users = new HashSet<String>();
+
+    ;
 
 
 
@@ -29,18 +32,46 @@ public class Domain {
     }
 
     public Domain(String name, String number, boolean active, String... users) {
-        this.name = name;
-        this.number = number;
+        this.subject = new Subject(name, number);
         this.active = active;
         setUsers(users);
         Domains.add(this);
-
-    }
-
-    public boolean cheakUser(String name){
-        return users.contains(name);
         
+        this.printUsers = Arrays.toString((String[]) ArrayUtils.toArray(users));
     }
+    public String getSubject() {
+        return subject.getSubject();
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+    
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Set<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<String> users) {
+        this.users = users;
+    }
+
+    public String getPrintUsers() {
+        return printUsers;
+    }
+
+    public boolean cheakUser(String name) {
+        return users.contains(name);
+
+    }
+
     public void setUsers(String[] users) {
         for (String user : users) {
             this.users.add(user);
@@ -48,12 +79,13 @@ public class Domain {
         }
     }
 
+
+
     @Override
     public int hashCode() {
         int hash = 5;
-        String domain = this.name + this.number;
-        hash = 31 * hash + Objects.hashCode(domain);
-        hash = 31 * hash + (this.active ? 1 : 0);
+        hash = 97 * hash + Objects.hashCode(this.subject);
+        hash = 97 * hash + (this.active ? 1 : 0);
         return hash;
     }
 
@@ -66,16 +98,10 @@ public class Domain {
             return false;
         }
         final Domain other = (Domain) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.number, other.number)) {
+        if (!Objects.equals(this.subject, other.subject)) {
             return false;
         }
         if (this.active != other.active) {
-            return false;
-        }
-        if (!Objects.equals(this.users, other.users)) {
             return false;
         }
         return true;
@@ -83,8 +109,8 @@ public class Domain {
 
     @Override
     public String toString() {
-        String[] array = users.toArray(new String[users.size()]);
-        return "Domain{" + "name=" + name + ", number=" + number + ", active=" + active + ", users=" + Arrays.toString(array) + '}';
+
+        return "Domain{" + "subject=" + subject + ", active=" + active + ", users=" + printUsers + '}';
     }
 
 }

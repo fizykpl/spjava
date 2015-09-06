@@ -1,0 +1,82 @@
+dn: ou=wftims,o=Politechnika Lodzka,c=PL
+objectClass: organizationalUnit
+ou: wftims
+structuralObjectClass: organizationalUnit
+
+dn: ou=studenci,ou=wftims,o=Politechnika Lodzka,c=PL
+objectClass: organizationalUnit
+ou: studenci
+structuralObjectClass: organizationalUnit
+
+dn: ou=list,ou=wftims,o=Politechnika Lodzka,c=PL
+objectClass: organizationalUnit
+ou: list
+userPassword: listerine
+description: Konto stosowane do listowania innych kont
+structuralObjectClass: organizationalUnit
+
+dn: cn=Kowalski Jan,ou=studenci,ou=wftims,o=Politechnika Lodzka,c=PL
+objectClass: labeledURIObject
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: top
+objectClass: shadowAccount
+objectClass: posixAccount
+objectClass: organizationalPerson
+homeDirectory: /home/users/j/janko
+cn: Kowalski Jan [ 123456 ]
+businessCategory: student
+gecos: [ 123456 ] Jan Kowalski <janko@stud.ics.p.lodz.pl> <123456@edu.p.lodz.pl>
+givenName: Jan
+ou: FTIMSUSERS
+ou: Instytut Informatyki
+ou: W7
+ou: I1
+loginShell: /bin/bash
+uid: janko
+shadowExpire: 16740
+gidNumber: 5892
+mail: janko@stud.ics.p.lodz.pl
+mail: 123456@edu.p.lodz.pl
+uidNumber: 5892
+shadowWarning: 7
+employeeType:: MTc4Njg5OkktR0tJTS1MMTAvU3QuSUkvRC9VL21nci9QTDxpbsW8LjpQxYEvRlRJTVMvSTE6QTozOjIwMTM6MQ==
+employeeType:: ODAwNjY3OklORi8yMDE0L1N0LklJSS9EL2RyL1BMOlDFgS9GVElNUy9JMTpSUDoyOjIwMTU6MA==
+employeeType:: MTUwODI4OkktWjA3L1N0LkkvRC9pbsW8Li9HS0lNOlDFgS9GVElNUy9JMTpBOjc6MjAxMjow
+displayName: Jan Kowalski
+sn: Kowalski
+userPassword: haslojanko
+structuralObjectClass: inetOrgPerson
+
+dn: cn=Nowak,ou=studenci,ou=wftims,o=Politechnika Lodzka,c=PL
+objectClass: labeledURIObject
+objectClass: inetOrgPerson
+objectClass: person
+objectClass: top
+objectClass: shadowAccount
+objectClass: posixAccount
+objectClass: organizationalPerson
+homeDirectory: /home/users/j/anno
+cn: Nowak Anna [ 123123 ]
+businessCategory: student
+gecos: [ 123123 ] Anna Nowak <anno@stud.ics.p.lodz.pl> <123123@edu.p.lodz.pl>
+givenName: Anna
+ou: FTIMSUSERS
+ou: Instytut Informatyki
+ou: W7
+ou: I1
+loginShell: /bin/bash
+uid: anno
+shadowExpire: 16740
+gidNumber: 5892
+mail: anno@stud.ics.p.lodz.pl
+mail: 123123@edu.p.lodz.pl
+uidNumber: 5892
+shadowWarning: 7
+employeeType:: MTc4Njg5OkktR0tJTS1MMTAvU3QuSUkvRC9VL21nci9QTDxpbsW8LjpQxYEvRlRJTVMvSTE6QTozOjIwMTM6MQ==
+employeeType:: ODAwNjY3OklORi8yMDE0L1N0LklJSS9EL2RyL1BMOlDFgS9GVElNUy9JMTpSUDoyOjIwMTU6MA==
+employeeType:: MTUwODI4OkktWjA3L1N0LkkvRC9pbsW8Li9HS0lNOlDFgS9GVElNUy9JMTpBOjc6MjAxMjow
+displayName: Anna Nowak
+sn: Nowak
+userPassword: hasloanno
+structuralObjectClass: inetOrgPerson

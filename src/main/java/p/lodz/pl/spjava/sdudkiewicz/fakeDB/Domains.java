@@ -19,20 +19,32 @@ public class Domains {
 
     public static HashSet<Domain> domains = new HashSet<Domain>();
 
-    public static String[] getSubject(String user) {
+    public static List<String> getSubject(String user) {
         List list = new ArrayList<String>();
 
         for (Domain domain : domains) {
             if (domain.cheakUser(user)) {
-                list.add(domain.name+domain.number);
+                list.add(domain.getSubject());
             }
         }
 
-        return (String[]) ArrayUtils.toArray(list);
+        return list;
     }
 
     public static void add(Domain domain) {
         domains.add(domain);
+    }
+
+    public static List<Domain> getDomains(String user) {
+        List<Domain> list = new ArrayList<Domain>();
+        
+        for (Domain domain : domains) {
+            if (domain.cheakUser(user)) {
+                list.add(domain);
+            }
+        }
+        
+        return list;
     }
 
     public static boolean containsUser(String user) {

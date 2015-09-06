@@ -6,6 +6,7 @@
 package p.lodz.pl.spjava.sdudkiewicz;
 
 import java.security.Principal;
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,16 +20,19 @@ import p.lodz.pl.spjava.sdudkiewicz.fakeDB.Domains;
  */
 @Controller
 public class UserController {
+    
+    
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String greetingForm(Model model, Principal principal) {
+        
+        String name = principal.getName();
+        List<Domain> domains= Domains.getDomains(name);
+        model.addAttribute("domain", new Domain("java", "01", true, "bob", "agata"));
         if (Domains.containsUser(principal.getName())) {
             model.addAttribute("name", principal.getName());
-            String[] subject = Domains.getSubject(principal.getName());
-            model.addAttribute("sybject", subject.length>0?subject[0]:"empty");
         } else {
             model.addAttribute("name", "Anonymus");
-            model.addAttribute("sybject", "empty");
         }
         
         
