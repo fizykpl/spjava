@@ -39,10 +39,9 @@ public class UsersUtils {
         try {
             ctx = new InitialDirContext(env);
             SearchControls controls = new SearchControls();
-//            controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            controls.setSearchScope(SearchControls.OBJECT_SCOPE);
-//            controls.setSearchScope(SearchControls.ONELEVEL_SCOPE);
-            results = ctx.search("", "(objectclass=organizationalUnit)", controls);
+            controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+            results = ctx.search("ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL", "objectClass=*", controls);
+//            results = ctx.search("", "objectClass=person", controls);
             while (results.hasMore()) {
                 SearchResult searchResult = (SearchResult) results.next();
                 Attributes attributes = searchResult.getAttributes();
