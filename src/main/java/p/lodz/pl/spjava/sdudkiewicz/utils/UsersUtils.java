@@ -29,19 +29,20 @@ public class UsersUtils {
 
         env.put(Context.INITIAL_CONTEXT_FACTORY,
                 "com.sun.jndi.ldap.LdapCtxFactory");
-//        env.put(Context.PROVIDER_URL, "ldap://127.0.0.1:33389/dc=springframework,dc=org");
-        env.put(Context.PROVIDER_URL, "ldap://studdev.zsk.p.lodz.pl:389/ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL");
-        env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        env.put(Context.SECURITY_PRINCIPAL, "ou=list,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL");
-        env.put(Context.SECURITY_CREDENTIALS, "listerine");
+        env.put(Context.PROVIDER_URL, "ldap://127.0.0.1:33389/dc=springframework,dc=org");
+//        env.put(Context.PROVIDER_URL, "ldap://studdev.zsk.p.lodz.pl:389/");//ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL");
+//        env.put(Context.SECURITY_AUTHENTICATION, "simple");
+//        env.put(Context.SECURITY_PRINCIPAL, "ou=list,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL");
+//        env.put(Context.SECURITY_CREDENTIALS, "listerine");
         DirContext ctx = null;
         NamingEnumeration results = null;
         try {
             ctx = new InitialDirContext(env);
             SearchControls controls = new SearchControls();
             controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-            results = ctx.search("ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL", "objectClass=*", controls);
-//            results = ctx.search("", "objectClass=person", controls);
+            controls.setDerefLinkFlag(false);
+//            results = ctx.search("ou=studenci,ou='Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej',o=Politechnika Lodzka,c=PL", "objectclass=person", controls);
+            results = ctx.search("", "objectClass=person", controls);
             while (results.hasMore()) {
                 SearchResult searchResult = (SearchResult) results.next();
                 Attributes attributes = searchResult.getAttributes();
