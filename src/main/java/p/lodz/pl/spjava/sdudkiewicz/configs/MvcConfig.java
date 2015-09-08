@@ -1,4 +1,4 @@
-package p.lodz.pl.spjava.sdudkiewicz;
+package p.lodz.pl.spjava.sdudkiewicz.configs;
 
 import java.util.logging.Logger;
 import org.springframework.context.annotation.Configuration;
