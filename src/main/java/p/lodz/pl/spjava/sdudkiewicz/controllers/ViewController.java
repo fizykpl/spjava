@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package p.lodz.pl.spjava.sdudkiewicz;
+package p.lodz.pl.spjava.sdudkiewicz.controllers;
 
 import java.security.Principal;
 import java.util.List;
@@ -22,9 +22,9 @@ import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
  * @author sylwekabc06
  */
 @Controller
-public class UserController {
+public class ViewController {
 
-    private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ViewController.class.getName());
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String greetingForm(Model model, Principal principal) {

@@ -1,4 +1,4 @@
-package p.lodz.pl.spjava.sdudkiewicz;
+package p.lodz.pl.spjava.sdudkiewicz.configs;
 
 import java.security.KeyStore.Entry.Attribute;
 import java.util.ArrayList;
