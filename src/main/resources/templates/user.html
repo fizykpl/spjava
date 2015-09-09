@@ -2,22 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>USER PAGE</title>
-        <h1>Welcome </h1>
-        <p th:text="'id: ' + ${name}"/>
-        <meta charset="utf-8" />
-    </head>
-    <body>
-        <h2>Domain information</h2>
-        <dl>
-            <dt>Subject</dt>
-            <dd th:text="${domain.subject}"></dd>
-            
-            <dt>Users in subject</dt>
-            <dd th:text="${domain.printUsers}"></dd>
-            
-            <dt>Users in subject</dt>
-            <dd th:text="${domain.printUsers}"></dd>
+    <h1>Welcome </h1>
+    <p th:text="'id: ' + ${name}"/>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h2>Your Domians</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Domain</th>
+            </tr>
+        </thead>
+        <tbody th:remove="all-but-first">
+            <tr th:each="domain : ${domains}">
+                <td th:text="${domain.subject}"></td>
+            </tr>
 
-        </dl>
-    </body>
+        </tbody>
+    </table>
+    <p>Click <a th:href="@{/domain}">here</a> to see User.</p>
+    <a href="/signup" th:href="@{/home}" class="btn btn-large btn-success">Sign up</a>
+</body>
 </html>
