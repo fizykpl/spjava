@@ -30,7 +30,7 @@ public class Domain {
     @NotNull
     private String subject;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "mtom",
             joinColumns = @JoinColumn(name = "domain_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -48,6 +48,12 @@ public class Domain {
     public String getSubject() {
         return subject;
     }
+
+    public List<User> getUsers() {
+        return users;
+    }
+    
+    
     
     
 

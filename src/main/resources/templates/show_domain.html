@@ -2,14 +2,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>Domain</title>
+        <title>Domain </title>
     </head>
     <body>
-        <h1>Domain</h1>
+        <h1>Domain <span th:text="${domain.subject}" /></h1>
         <input type="submit" value="Start" />
         <input type="submit" value="Stop" />
         <input type="submit" value="Resrt" />
         <input type="submit" value="Delete" />
         <input type="submit" value="Create" />
+        <table>
+            <thead>
+                <tr>
+                    <th>users</th>
+                </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+                <tr th:each="user : ${domain.users}">
+                    <td th:text="${user.cn}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+       
     </body>
+
 </html>

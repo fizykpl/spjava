@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Domain </title>
+    </head>
+    <body>
+
+        <!--<form action="/script/start">--> 
+        <!--<input type="hidden" name="scriptName" value="cos tam"-->
+        <input type="submit" value="Start" />
+        <!--</form>-->
+        <input type="submit" value="Stop" />
+        <input type="submit" value="Resrt" />
+        <input type="submit" value="Delete" />
+        <input type="submit" value="Create" />
+        <table>
+            <thead>
+                <tr>
+                    <th>users:</th>
+                </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+                <tr th:each="user : ${users}">
+                    <td><a th:text="${user.cn}"/></td>
+                </tr>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>link</th>
+                    <th>domains:</th>
+                </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+                <tr th:each="domain : ${domains}">
+                    <!--http://www.thymeleaf.org/doc/articles/standardurlsyntax.html-->
+                    <!--                                    <td><a th:href="@{/domain/{domainName}(${domain.subject})">here</a></td>-->
+                    <!--<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>-->
+                    <td> <a th:href="@{/domain/java01}">wer</a> </td>
+                    <td> <a th:text="${domain.subject}">wer</a> </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+
+</html>

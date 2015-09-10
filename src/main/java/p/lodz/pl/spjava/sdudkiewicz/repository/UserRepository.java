@@ -8,6 +8,6 @@ import p.lodz.pl.spjava.sdudkiewicz.models.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    List<User> findByCn(String cn);
+    User findByCn(String cn);
     List<User> findByUid(String uid);
 }

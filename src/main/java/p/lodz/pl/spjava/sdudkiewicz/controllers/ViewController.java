@@ -11,11 +11,14 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
+import p.lodz.pl.spjava.sdudkiewicz.models.User;
 import p.lodz.pl.spjava.sdudkiewicz.repository.DomainRepository;
-import p.lodz.pl.spjava.sdudkiewicz.user.User;
+import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
+
 import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 /**
@@ -27,24 +30,41 @@ public class ViewController {
 
     @Autowired
     DomainRepository domainRepository;
+    @Autowired
+    UserRepository userRepository;
 
     private static final Logger LOGGER = Logger.getLogger(ViewController.class.getName());
 
     @RequestMapping(value = "/domain", method = RequestMethod.GET)
-    public String domain() {
-        return "domain";
+    public String domain(Model model) {
+        model.addAttribute("domains",domainRepository.findAll());
+        model.addAttribute("users",userRepository.findAll());
+        return "domain_list";
     }
+    
+    @RequestMapping(value = "/domain/{domainName}", method = RequestMethod.GET)
+    public String showDomain(@PathVariable String domainName, Model model) {
+        model.addAttribute("domain",domainRepository.findBySubject(domainName));
+        return "show_domain";
+    }
+    
+//    @RequestMapping(value = "/script/start", method = RequestMethod.GET)
+//    public String showDomain() {
+//        
+//        return "show_domain";
+//    }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String greetingForm(Model model, Principal principal) {
         LOGGER.info(model.toString());
         LOGGER.info(principal.toString());
         String name = principal.getName();
-        List<Domain> domains = (List<Domain>) domainRepository.findAll();
+        User findByCn = userRepository.findByCn(name);
+//        List<Domain> domains = (List<Domain>) domainRepository.findAll();
 
 //        model.addAttribute("domain", new Domain("java", "01", true, "bob", "agata"));
 //        if (Domains.containsUser(principal.getName())) {
-        model.addAttribute("domains", domains);
+        model.addAttribute("domains", findByCn.getDomains());
 //        } else {
         model.addAttribute("name", principal.getName());
 //        }

@@ -31,9 +31,9 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         //save domain
-        if (domainRepository.findBySubject("java01").size() == 0) {
-            domainRepository.save(new Domain("java01"));
-        }
+//        if (domainRepository.findBySubject("java01").size() == 0) {
+//            domainRepository.save(new Domain("java01"));
+//        }
         //save user
         if (userRepository.findByUid("uid1").size()==0) {
             userRepository.save(new User("Franek", "uid1"));

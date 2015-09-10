@@ -15,5 +15,5 @@ import p.lodz.pl.spjava.sdudkiewicz.models.Customer;
  * @author Sylwester
  */
 public interface DomainRepository extends CrudRepository<Domain, Long>{
-    List<Domain> findBySubject(String subject);
+    Domain findBySubject(String subject);
 }
