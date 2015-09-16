@@ -29,8 +29,9 @@ public class UsersUtils {
 
         env.put(Context.INITIAL_CONTEXT_FACTORY,
                 "com.sun.jndi.ldap.LdapCtxFactory");
-        env.put(Context.PROVIDER_URL, "ldap://studdev.zsk.p.lodz.pl:389");
-        env.put(Context.SECURITY_AUTHENTICATION, "simple");
+   //     env.put(Context.PROVIDER_URL, "ldap://127.0.0.1:33389/dc=springframework,dc=org");
+       env.put(Context.PROVIDER_URL, "ldap://studdev.zsk.p.lodz.pl:389");
+       env.put(Context.SECURITY_AUTHENTICATION, "simple");
         env.put(Context.SECURITY_PRINCIPAL, "ou=list,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL");
         env.put(Context.SECURITY_CREDENTIALS, "listerine");
         DirContext ctx = null;
@@ -39,8 +40,9 @@ public class UsersUtils {
             ctx = new InitialDirContext(env);
             SearchControls controls = new SearchControls();
             controls.setReturningObjFlag(true);
-            controls.setSearchScope(SearchControls.ONELEVEL_SCOPE);
-            results = ctx.search("ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL", "objectClass=*", controls);
+            controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
+            results = ctx.search("", "objectClass=person", controls);
+//            results = ctx.search("ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL", "objectClass=*", controls);
             while (results.hasMore()) {
                 SearchResult searchResult = (SearchResult) results.next();
                 Attributes attributes = searchResult.getAttributes();
@@ -52,7 +54,7 @@ public class UsersUtils {
                 String uid = (String) attr1.get();                
                 
 
-                User u = new User(cn,uid);
+                User u = new User(uid,cn);
                 users.add(u);
 
                 LOGGER.info("Found User " + u.toString());

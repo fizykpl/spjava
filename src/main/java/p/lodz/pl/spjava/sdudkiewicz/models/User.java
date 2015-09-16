@@ -1,6 +1,8 @@
 package p.lodz.pl.spjava.sdudkiewicz.models;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,9 +37,6 @@ public class User {
   private String uid;
   
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users", cascade = CascadeType.PERSIST)
-//    @JoinTable(name = "mtom",
-//            joinColumns = @JoinColumn(name = "domain_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<Domain> domains;
 
   // ------------------------
@@ -56,7 +55,7 @@ public class User {
     this.id = id;
   }
 
-  public User(String cn, String uid) {
+  public User(String uid, String cn) {
     this.cn = cn;
     this.uid = uid;
   }
@@ -83,6 +82,36 @@ public class User {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.uid);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.cn, other.cn)) {
+            return false;
+        }
+        if (!Objects.equals(this.uid, other.uid)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", cn=" + cn + ", uid=" + uid +'}';
     }
 
 

@@ -33,49 +33,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin();
     }
 
-
-
     @Configuration
     protected static class AuthenticationConfiguration extends
-                GlobalAuthenticationConfigurerAdapter {
+            GlobalAuthenticationConfigurerAdapter {
 
         private static final Logger LOGGER = Logger.getLogger(AuthenticationConfiguration.class.getName());
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-            
-            LOGGER.info("init " + auth.toString());
+
+            LOGGER.info(">>>>>init " + auth.toString());
 //            auth
-//                    .ldapAuthentication()                                             
-//                    .userDnPatterns("uid={0},ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL")
-//                    .contextSource()
-////                           .root("ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL")
-//                           .ldif("classpath:content.ldif").;
-//            
+//                .inMemoryAuthentication().withUser("ou=list,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL").password("listerine");
+            String base = "ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL";
             auth
-                    .ldapAuthentication()
-                    .userDnPatterns("uid={0},ou=people")
-                    .contextSource()
-//                        .root("dc=google,dc=org")
-//                        .root("dc=springframework,dc=org")
-                        .ldif("classpath:test-server.ldif");
-            
+	            .ldapAuthentication()
+	            .userSearchBase("ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL")
+	            .userSearchFilter("uid={0}")
+	            .contextSource()
+	                   .url("ldap://studdev.zsk.p.lodz.pl:389")
+	                   .managerDn("ou=list,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL")
+	                  .managerPassword("listerine");
+
+//            auth
+//                    .ldapAuthentication()
+//                    .userDnPatterns("uid={0},ou=people")
+//                    .contextSource()
+//                        .ldif("classpath:test-server.ldif");
 //            DirContext ctx = cre
-            
-            
-            
-   
-            
-            
-            
-            
 //      ldapTemplate.search(  query().where("objectclass").is("person"),  new AttributesMapper<String>() {
 //          public String mapFromAttributes(Attributes attrs)
 //               throws NamingException {
 //               return attrs.get("cn").get().toString();
 //            }
 //         });
-
-    }
+        }
     }
 }

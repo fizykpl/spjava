@@ -8,7 +8,6 @@ package p.lodz.pl.spjava.sdudkiewicz.repository;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
-import p.lodz.pl.spjava.sdudkiewicz.models.Customer;
 
 /**
  *

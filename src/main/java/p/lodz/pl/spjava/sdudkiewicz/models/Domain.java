@@ -52,6 +52,11 @@ public class Domain {
     public List<User> getUsers() {
         return users;
     }
+
+    @Override
+    public String toString() {
+        return "Domain{" + "id=" + id + ", subject=" + subject + '}';
+    }
     
     
     

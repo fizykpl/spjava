@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +36,23 @@ public class ViewController {
 
     private static final Logger LOGGER = Logger.getLogger(ViewController.class.getName());
 
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public String greetingForm(Model model, Principal principal) {
+        LOGGER.info(model.toString());
+        LOGGER.info(principal.toString());
+        
+        
+        String name = principal.getName();
+        
+        User user = userRepository.findByUid(name);
+
+        model.addAttribute("domains", user.getDomains());
+        model.addAttribute("name", user.getCn());
+
+        LOGGER.info(model.toString());
+        return "user";
+    }
+    
     @RequestMapping(value = "/domain", method = RequestMethod.GET)
     public String domain(Model model) {
         model.addAttribute("domains",domainRepository.findAll());
@@ -54,24 +72,7 @@ public class ViewController {
 //        return "show_domain";
 //    }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String greetingForm(Model model, Principal principal) {
-        LOGGER.info(model.toString());
-        LOGGER.info(principal.toString());
-        String name = principal.getName();
-        User findByCn = userRepository.findByCn(name);
-//        List<Domain> domains = (List<Domain>) domainRepository.findAll();
 
-//        model.addAttribute("domain", new Domain("java", "01", true, "bob", "agata"));
-//        if (Domains.containsUser(principal.getName())) {
-        model.addAttribute("domains", findByCn.getDomains());
-//        } else {
-        model.addAttribute("name", principal.getName());
-//        }
-
-        LOGGER.info(model.toString());
-        return "user";
-    }
 
     @RequestMapping(value = "/userList", method = RequestMethod.GET)
     public String userList(Model model, Principal principal) {
