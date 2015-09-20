@@ -8,6 +8,7 @@ package p.lodz.pl.spjava.sdudkiewicz.controllers;
 import java.security.Principal;
 import java.util.List;
 import java.util.logging.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +16,12 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import p.lodz.pl.spjava.sdudkiewicz.Script;
 import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.models.User;
 import p.lodz.pl.spjava.sdudkiewicz.repository.DomainRepository;
 import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
-
 import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 /**
@@ -40,31 +42,56 @@ public class ViewController {
     public String greetingForm(Model model, Principal principal) {
         LOGGER.info(model.toString());
         LOGGER.info(principal.toString());
-        
-        
-        String name = principal.getName();
+       
+        return toUser(model, principal);
+
+    }
+    
+
+    
+	@RequestMapping(value = "/script/start/{subject}", method = RequestMethod.GET)
+	public String scriptStart(@PathVariable String subject, Model model, Principal principal) {
+		LOGGER.info("/script/start/" + subject);
+		
+		User user = userRepository.findByUid(principal.getName());
+		List<Domain> domain = user.getDomains();
+		if(true){
+			Script scipt = new Script();
+			scipt.startDomain(subject);
+	        return toUser(model, principal);
+		}else{
+			return "errorDomain";	
+		}
+
+		
+
+	}
+	@RequestMapping(value = "/script/stop/{subject}", method = RequestMethod.GET)
+	public String scriptStop(@PathVariable String subject, Model model, Principal principal) {
+		LOGGER.info("/script/stop/" + subject);
+		if(true){
+			Script scipt = new Script();
+			scipt.stopDomain(subject);
+			return toUser(model, principal);
+		}else{
+			return "errorDomain";	
+		}
+
+	}
+
+	private String toUser(Model model, Principal principal) {
+		String name = principal.getName();
         
         User user = userRepository.findByUid(name);
-
-        model.addAttribute("domains", user.getDomains());
-        model.addAttribute("name", user.getCn());
-
-        LOGGER.info(model.toString());
-        return "user";
-    }
-    
-    @RequestMapping(value = "/domain", method = RequestMethod.GET)
-    public String domain(Model model) {
-        model.addAttribute("domains",domainRepository.findAll());
-        model.addAttribute("users",userRepository.findAll());
-        return "domain_list";
-    }
-    
-    @RequestMapping(value = "/domain/{domainName}", method = RequestMethod.GET)
-    public String showDomain(@PathVariable String domainName, Model model) {
-        model.addAttribute("domain",domainRepository.findBySubject(domainName));
-        return "show_domain";
-    }
+        if(user!=null){
+        	model.addAttribute("domains", user.getDomains());
+        	model.addAttribute("name", user.getCn());
+        	return "user";
+        }else{
+        	
+        	return "user";
+        }
+	}    
     
 //    @RequestMapping(value = "/script/start", method = RequestMethod.GET)
 //    public String showDomain() {
@@ -74,22 +101,35 @@ public class ViewController {
 
 
 
-    @RequestMapping(value = "/userList", method = RequestMethod.GET)
-    public String userList(Model model, Principal principal) {
-        LOGGER.info(model.toString());
-        LOGGER.info(principal.toString());
-        List<User> users = UsersUtils.getUsers();
+//    @RequestMapping(value = "/userList", method = RequestMethod.GET)
+//    public String userList(Model model, Principal principal) {
+//        LOGGER.info(model.toString());
+//        LOGGER.info(principal.toString());
+//        List<User> users = UsersUtils.getUsers();
 //        String name = principal.getName();
 //        List<Domain> domains = Domains.getDomains(name);
-        model.addAttribute("users", users);
+//        model.addAttribute("users", users);
 //        if (Domains.containsUser(principal.getName())) {
 //            model.addAttribute("name", principal.getName());
 //        } else {
 //            model.addAttribute("name", "Anonymus");
 //        }
 
-        LOGGER.info(model.toString());
-        return "userList";
-    }
+//        LOGGER.info(model.toString());
+//        return "userList";
+//    }
+	
+//  @RequestMapping(value = "/domain", method = RequestMethod.GET)
+//  public String domain(Model model) {
+//      model.addAttribute("domains",domainRepository.findAll());
+//      model.addAttribute("users",userRepository.findAll());
+//      return "domain_list";
+//  }
+  
+//  @RequestMapping(value = "/domain/{domainName}", method = RequestMethod.GET)
+//  public String showDomain(@PathVariable String domainName, Model model) {
+//      model.addAttribute("domain",domainRepository.findBySubject(domainName));
+//      return "show_domain";
+//  }	
 
 }

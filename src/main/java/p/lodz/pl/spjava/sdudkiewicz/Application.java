@@ -28,11 +28,11 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         
-//        List<User> users = UsersUtils.getUsers();
-//        List<User> findAll = (List<User>) userRepository.findAll();
-//        
-//        boolean removeAll = users.removeAll(findAll);
-//        userRepository.save(users);
+        List<User> users = UsersUtils.getUsers();
+        List<User> findAll = (List<User>) userRepository.findAll();
+        
+        boolean removeAll = users.removeAll(findAll);
+        userRepository.save(users);
 //        
 //        
 //        System.out.println("");

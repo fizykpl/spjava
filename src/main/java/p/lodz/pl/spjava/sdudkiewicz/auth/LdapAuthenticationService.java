@@ -37,15 +37,15 @@ public class LdapAuthenticationService implements AuthenticationService {
 		controls.setReturningObjFlag(true);
 		controls.setSearchScope(SearchControls.ONELEVEL_SCOPE);
 		controls.setCountLimit(1);
-		String string = String.format("(uid=%s)(userPassword=%s)", uid, password);
+		String filter = String.format("(uid=%s)(userPassword=%s)", uid, password);
 		NamingEnumeration<SearchResult> search = ctx.search(
 				"ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL",
-				string, controls);
+				filter, controls);
 		return search.hasMore();
 	}
 
-	public static void main(String[] args) throws Exception {
-		AuthenticationService ldapService = new LdapAuthenticationService();
-		ldapService.authenticate("janko", "haslojanko");
-	}
+//	public static void main(String[] args) throws Exception {
+//		AuthenticationService ldapService = new LdapAuthenticationService();
+//		ldapService.authenticate("janko", "haslojanko");
+//	}
 }

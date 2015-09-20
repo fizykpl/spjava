@@ -5,14 +5,26 @@
  */
 package p.lodz.pl.spjava.sdudkiewicz;
 
+import java.util.logging.Logger;
+
+import p.lodz.pl.spjava.sdudkiewicz.configs.MvcConfig;
+
 /**
  *
  * @author Sylwester
  */
 public class Script {
+	private static final Logger LOGGER = Logger.getLogger( Script.class.getName() );
+	
+    public void startDomain(String subject){
+        LOGGER.info("Initialize start domian: "+ subject);
+        LOGGER.info("Finished start domian: "+ subject);
+    }
     
-    void metod1(){
-        System.out.println("cycki");
+    
+    public void stopDomain(String subject){
+        LOGGER.info("Initialize stop domian: "+ subject);
+        LOGGER.info("Finished stop domian: "+ subject);
     }
     
 }

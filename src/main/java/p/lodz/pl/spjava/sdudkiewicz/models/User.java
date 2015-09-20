@@ -1,8 +1,10 @@
 package p.lodz.pl.spjava.sdudkiewicz.models;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,9 +45,7 @@ public class User {
   // PUBLIC METHODS
   // ------------------------
 
-    public List<Domain> getDomains() {
-        return domains;
-    }
+
     
     
   
@@ -83,7 +83,15 @@ public class User {
     public void setUid(String uid) {
         this.uid = uid;
     }
-
+    
+    public List<Domain> getDomains() {
+    	if(null == domains ){
+    		return new ArrayList<Domain>();
+    		
+    	}{
+    		return domains;
+    	}
+    }    
     @Override
     public int hashCode() {
         int hash = 3;

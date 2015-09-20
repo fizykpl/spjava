@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.models.User;
-import p.lodz.pl.spjava.sdudkiewicz.models.UserDao;
 import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
 
 /**
@@ -46,7 +45,7 @@ public class UserController {
     public String delete(long id) {
         try {
             User user = new User(id);
-            userDao.delete(user);
+            userRepository.delete(id);
         } catch (Exception ex) {
             return "Error deleting the user: " + ex.toString();
         }
@@ -61,7 +60,7 @@ public class UserController {
     public String getByEmail(String cn) {
         String userId;
         try {
-            User user = userDao.getCn(cn);
+            User user = userRepository.findByCn(cn);
             userId = String.valueOf(user.getId());
         } catch (Exception ex) {
             return "User not found: " + ex.toString();
@@ -76,7 +75,7 @@ public class UserController {
     @ResponseBody
     public String updateName(long id, String cn, String uid) {
         try {
-            User user = userDao.getById(id);
+            User user =userRepository.findByUid(uid);
             user.setCn(cn);
             user.setUid(uid);
             userRepository.save(user);
@@ -86,11 +85,5 @@ public class UserController {
         return "User succesfully updated!";
     }
 
-  // ------------------------
-    // PRIVATE FIELDS
-    // ------------------------
-    // Wire the UserDao used inside this controller.
-    @Autowired
-    private UserDao userDao;
 
 } // class UserController

@@ -6,6 +6,8 @@
 package p.lodz.pl.spjava.sdudkiewicz.models;
 
 import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,7 +30,10 @@ public class Domain {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @NotNull
+    @Column(unique = true)
     private String subject;
+    
+    private Boolean busy;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "mtom",
@@ -53,7 +58,16 @@ public class Domain {
         return users;
     }
 
-    @Override
+    public Boolean getBusy() {
+		return busy;
+	}
+
+	public void setBusy(Boolean busy) {
+		this.busy = busy;
+	}
+
+
+	@Override
     public String toString() {
         return "Domain{" + "id=" + id + ", subject=" + subject + '}';
     }
