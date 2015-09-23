@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package p.lodz.pl.spjava.sdudkiewicz;
+package p.lodz.pl.spjava.sdudkiewicz.script;
 
+import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 import p.lodz.pl.spjava.sdudkiewicz.configs.MvcConfig;
@@ -13,8 +14,10 @@ import p.lodz.pl.spjava.sdudkiewicz.configs.MvcConfig;
  *
  * @author Sylwester
  */
-public class Script {
+public class Script implements Callable<Boolean>{
 	private static final Logger LOGGER = Logger.getLogger( Script.class.getName() );
+	
+	
 	
     public void startDomain(String subject){
         LOGGER.info("Initialize start domian: "+ subject);
@@ -26,5 +29,12 @@ public class Script {
         LOGGER.info("Initialize stop domian: "+ subject);
         LOGGER.info("Finished stop domian: "+ subject);
     }
+
+
+	@Override
+	public Boolean call() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

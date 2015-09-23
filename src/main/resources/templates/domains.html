@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Security Example</title>
+</head>
+<body>
+	<h1>Welcome Admin</h1>
+	<p th:text="'Your id: ' + ${name}" />
+	<h1>All Doamins</h1>
+	<table>
+		<tbody th:remove="all-but-first">
+			<tr th:each="domain : ${domains}">
+				<td><a th:href="@{'/domain/'+${domain.subject}}"
+					th:text="${domain.subject}"></a></td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+</body>
+</html>

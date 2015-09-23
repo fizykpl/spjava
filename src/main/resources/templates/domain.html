@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Spring Security Example</title>
+</head>
+<body>
+	<h1>
+		<a th:text="'Domain '+${domain.subject}"></a>
+	</h1>
+
+	<table>
+		<tbody th:remove="all-but-first">
+			<tr th:each="user : ${userToAdd}">
+				<td><a th:text="${user.cn}"></a></td>
+				<td><form
+						th:action="'/domain/add/'+${domain.subject}+'/'+${user.uid}"
+						method="get">
+						<input type="submit" value="Add" />
+					</form></td>
+
+
+			</tr>
+
+		</tbody>
+	</table>
+	<table>
+		<tbody th:remove="all-but-first">
+			<tr th:each="user : ${userToRemove}">
+				<td><a th:text="${user.cn}"></a></td>
+				<td><form
+						th:action="'/domain/remove/'+${domain.subject}+'/'+${user.uid}"
+						method="get">
+						<input type="submit" value="Remove" />
+					</form></td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		Click <a th:href="@{/domains}">here</a> to see Domains.
+	</p>
+	<p>
+		Click <a th:href="@{/user}">here</a> to see User.
+	</p>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+</body>
+</html>

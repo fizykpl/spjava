@@ -2,8 +2,10 @@ package p.lodz.pl.spjava.sdudkiewicz.models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -39,7 +41,7 @@ public class User {
   private String uid;
   
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users", cascade = CascadeType.PERSIST)
-    private List<Domain> domains;
+    private Set<Domain> domains;
 
   // ------------------------
   // PUBLIC METHODS
@@ -84,9 +86,9 @@ public class User {
         this.uid = uid;
     }
     
-    public List<Domain> getDomains() {
+    public Set<Domain> getDomains() {
     	if(null == domains ){
-    		return new ArrayList<Domain>();
+    		return new HashSet<>();
     		
     	}{
     		return domains;

@@ -6,6 +6,7 @@
 package p.lodz.pl.spjava.sdudkiewicz.models;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +40,7 @@ public class Domain {
     @JoinTable(name = "mtom",
             joinColumns = @JoinColumn(name = "domain_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+    private Set<User> users;
 
 
     public Domain() {
@@ -54,7 +55,7 @@ public class Domain {
         return subject;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
