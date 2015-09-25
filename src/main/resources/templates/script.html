@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<p th:text="'Domain name ' + ${domain.subject}"></p>
+	<p th:text="'Script name '+ ${script.name}"></p>
+	<p></p>
+	<p th:text="'debug: toRead= '+${script.toRead}"></p>
+	<p th:text="'debug: toEdit= '+${script.toEdit}"></p>
+	<p th:text="'debug: toRun= '+${script.toRun}"></p>
+	<p th:text="'debug: onlyAdmin= '+${script.onlyAdmin}"></p>
+	
+	
+
+	<div th:switch="${script.toRead}">
+		<p th:case="true">
+		<div th:switch="${script.toEdit}">
+			<p th:case="true">
+				<textarea rows="10" cols="100" th:text="${script.command}"></textarea>
+			</p>
+			<p th:case="false">
+				<textarea readonly="readonly" rows="5" cols="100"
+					th:text="${script.command}"></textarea>
+			</p>
+		</div>
+
+		</p>
+		<p th:case="false">Script not to read</p>
+	</div>
+
+	<div>
+		<form th:action="'/script/run' + '/' + ${domain.subject} + '/' + ${script.name}" method="get">
+			<input type="submit" value="Run Script on server" th:disabled="!${script.toRun}"/>
+		</form>
+
+<!-- 		<button th:action="'/script/run' + '/' + ${domain.subject} + '/' + ${script.name}" type="button" th:disabled="!${script.toRun}" >Run
+			Script on server</button> -->
+	</div>
+		<div>
+			<form th:action="'/script/save/' + ${domain.subject} + '/' + ${script.name}" method="get">
+				<input type="submit" value="Save Script on server" th:disabled="!${script.toEdit}"/>
+			</form>
+	</div>
+<p>Click <a th:href="@{/user}">here</a> to see User.</p>
+
+</body>
+</html>

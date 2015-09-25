@@ -14,8 +14,8 @@ import p.lodz.pl.spjava.sdudkiewicz.configs.MvcConfig;
  *
  * @author Sylwester
  */
-public class Script implements Callable<Boolean>{
-	private static final Logger LOGGER = Logger.getLogger( Script.class.getName() );
+public class Script1 implements Callable<Boolean>{
+	private static final Logger LOGGER = Logger.getLogger( Script1.class.getName() );
 	
 	
 	

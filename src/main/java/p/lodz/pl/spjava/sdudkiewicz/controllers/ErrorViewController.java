@@ -21,7 +21,6 @@ import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.models.User;
 import p.lodz.pl.spjava.sdudkiewicz.repository.DomainRepository;
 import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
-import p.lodz.pl.spjava.sdudkiewicz.script.Script;
 import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 /**

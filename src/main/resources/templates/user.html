@@ -12,23 +12,24 @@
 		<tbody th:remove="all-but-first">
 			<tr th:each="domain : ${domains}">
 				<td><a th:text="${domain.subject}"></a></td>
-				
-				<td><form th:action="'/script/start/'+${domain.subject}" method="get">
-		        	<input type="submit" value="Start" />
-		        </form></td>
-				<td><form th:action="'/script/stop/'+${domain.subject}" method="get">
-		        	<input type="submit" value="Stop" />
-		        </form></td>
-				
+
+
+				<td th:each="script : ${scripts}">
+					<form th:action="'/script/' + ${domain.subject} + '/' + ${script.name}" method="get">
+						<input type="submit" th:value="${script.name}"/>
+					</form>
+				</td>
+
 			</tr>
 
 		</tbody>
 	</table>
 
-<p>
+	<p>
+	<p>Click <a th:href="@{/home}">here</a> to see Home.</p>
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Sign Out" />
 	</form>
-</p>
+	</p>
 </body>
 </html>
