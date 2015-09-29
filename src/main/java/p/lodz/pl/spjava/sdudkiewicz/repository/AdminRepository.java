@@ -5,17 +5,14 @@
  */
 package p.lodz.pl.spjava.sdudkiewicz.repository;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
 import p.lodz.pl.spjava.sdudkiewicz.models.Admin;
-import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 
 /**
  *
  * @author Sylwester
  */
-public interface AdminRepository extends CrudRepository<Admin, Long>{
-    Admin findByUid(String uid);
+public interface AdminRepository extends CrudRepository<Admin, Long> {
+	Admin findByUid(String uid);
 }

@@ -6,22 +6,12 @@
 package p.lodz.pl.spjava.sdudkiewicz.controllers;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.logging.Logger;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
-import p.lodz.pl.spjava.sdudkiewicz.models.User;
-import p.lodz.pl.spjava.sdudkiewicz.repository.DomainRepository;
-import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
-import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 /**
  *
@@ -30,16 +20,14 @@ import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 @Controller
 public class ErrorViewController {
 
+	private static final Logger LOGGER = Logger
+			.getLogger(ErrorViewController.class.getName());
 
-	private static final Logger LOGGER = Logger.getLogger(ErrorViewController.class
-			.getName());
+	@RequestMapping(value = "/permissionDenied", method = RequestMethod.GET)
+	public String permissionDenied(Model model, Principal principal) {
 
-	@RequestMapping(value = "/errorDomain", method = RequestMethod.GET)
-	public String greetingForm(Model model, Principal principal) {
-
-		return "errorDomain";
+		return "permissionDenied";
 
 	}
-
 
 }

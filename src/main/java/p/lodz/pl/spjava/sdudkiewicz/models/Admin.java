@@ -5,16 +5,10 @@
  */
 package p.lodz.pl.spjava.sdudkiewicz.models;
 
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -24,23 +18,22 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Admin {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @NotNull
-    private String uid;
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	@NotNull
+	private String uid;
 
-    public Admin() {
-    }
+	public Admin() {
+	}
 
-    public Admin( String uid) {
-        this.uid = uid;
-    }
+	public Admin(String uid) {
+		this.uid = uid;
+	}
 
-    public String getUid() {
-        return uid;
-    }
+	public String getUid() {
+		return uid;
+	}
 
 	@Override
 	public String toString() {

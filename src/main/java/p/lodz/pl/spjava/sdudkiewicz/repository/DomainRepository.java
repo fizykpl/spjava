@@ -5,14 +5,14 @@
  */
 package p.lodz.pl.spjava.sdudkiewicz.repository;
 
-import java.util.List;
 import org.springframework.data.repository.CrudRepository;
+
 import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 
 /**
  *
  * @author Sylwester
  */
-public interface DomainRepository extends CrudRepository<Domain, Long>{
-    Domain findBySubject(String subject);
+public interface DomainRepository extends CrudRepository<Domain, Long> {
+	Domain findBySubject(String subject);
 }

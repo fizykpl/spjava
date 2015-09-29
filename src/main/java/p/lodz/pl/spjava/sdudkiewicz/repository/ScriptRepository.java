@@ -5,18 +5,14 @@
  */
 package p.lodz.pl.spjava.sdudkiewicz.repository;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
-import p.lodz.pl.spjava.sdudkiewicz.models.Admin;
-import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.models.Script;
 
 /**
  *
  * @author Sylwester
  */
-public interface ScriptRepository extends CrudRepository<Script, Long>{
-    Script findByName(String name);
+public interface ScriptRepository extends CrudRepository<Script, Long> {
+	Script findByName(String name);
 }

@@ -1,22 +1,9 @@
 package p.lodz.pl.spjava.sdudkiewicz.models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -25,95 +12,93 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Script {
 
-  // ------------------------
-  // PRIVATE FIELDS
-  // ------------------------
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+	// ------------------------
+	// PRIVATE FIELDS
+	// ------------------------
 
-  @NotNull
-  private String name;
-  
-  @NotNull
-  private String command;
-  
-  @NotNull
-  private Boolean onlyAdmin;
-  
-  @NotNull
-  private Boolean toRead;
-  
-  @NotNull
-  private Boolean toEdit;
-  
-  @NotNull
-  private Boolean toRun;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-public String getName() {
-	return name;
-}
+	@NotNull
+	private String name;
 
-public void setName(String name) {
-	this.name = name;
-}
+	@NotNull
+	private String command;
 
-public Boolean getOnlyAdmin() {
-	return onlyAdmin;
-}
+	@NotNull
+	private Boolean onlyAdmin;
 
-public void setOnlyAdmin(Boolean onlyAdmin) {
-	this.onlyAdmin = onlyAdmin;
-}
+	@NotNull
+	private Boolean toRead;
 
-public Long getId() {
-	return id;
-}
+	@NotNull
+	private Boolean toEdit;
 
-public void setId(Long id) {
-	this.id = id;
-}
+	@NotNull
+	private Boolean toRun;
 
-public String getCommand() {
-	return command;
-}
+	public String getName() {
+		return name;
+	}
 
-public void setCommand(String command) {
-	this.command = command;
-}
+	public void setName(String name) {
+		this.name = name;
+	}
 
-public Boolean getToRead() {
-	return toRead;
-}
+	public Boolean getOnlyAdmin() {
+		return onlyAdmin;
+	}
 
-public void setToRead(Boolean toRead) {
-	this.toRead = toRead;
-}
+	public void setOnlyAdmin(Boolean onlyAdmin) {
+		this.onlyAdmin = onlyAdmin;
+	}
 
-public Boolean getToEdit() {
-	return toEdit;
-}
+	public Long getId() {
+		return id;
+	}
 
-public void setToEdit(Boolean toEdit) {
-	this.toEdit = toEdit;
-}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-public Boolean getToRun() {
-	return toRun;
-}
+	public String getCommand() {
+		return command;
+	}
 
-public void setToRun(Boolean toRun) {
-	this.toRun = toRun;
-}
+	public void setCommand(String command) {
+		this.command = command;
+	}
 
-@Override
-public String toString() {
-	return "Script [id=" + id + ", name=" + name + ", command=" + command
-			+ ", onlyAdmin=" + onlyAdmin + ", toRead=" + toRead + ", toEdit="
-			+ toEdit + ", toRun=" + toRun + "]";
-}
+	public Boolean getToRead() {
+		return toRead;
+	}
 
+	public void setToRead(Boolean toRead) {
+		this.toRead = toRead;
+	}
 
-  
+	public Boolean getToEdit() {
+		return toEdit;
+	}
+
+	public void setToEdit(Boolean toEdit) {
+		this.toEdit = toEdit;
+	}
+
+	public Boolean getToRun() {
+		return toRun;
+	}
+
+	public void setToRun(Boolean toRun) {
+		this.toRun = toRun;
+	}
+
+	@Override
+	public String toString() {
+		return "Script [id=" + id + ", name=" + name + ", command=" + command
+				+ ", onlyAdmin=" + onlyAdmin + ", toRead=" + toRead
+				+ ", toEdit=" + toEdit + ", toRun=" + toRun + "]";
+	}
+
 } // class Script

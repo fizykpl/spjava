@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Spring Security Example</title>
-    </head>
-    <body>
-        <h1>Welcome!</h1>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<title>Spring Security Example</title>
+</head>
+<body>
+	<h1>Welcome!</h1>
 
-        <p>Click <a th:href="@{/user}">here</a> to see User.</p>
-        <p>Click <a th:href="@{/domains}">here</a> to see Domains.</p>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </body>
+	<p>
+		Click <a th:href="@{/user}">here</a> to see User.
+	</p>
+		
+	<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<p>
+			Click <a th:href="@{/domains}">here</a> to see Domains.
+		</p>
+	</div>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+</body>
 </html>

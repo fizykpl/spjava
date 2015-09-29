@@ -5,21 +5,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p th:text="'Domain name ' + ${domain.subject}"></p>
-	<p th:text="'Script name '+ ${script.name}"></p>
-	<p></p>
+	<h1 th:text="'Domain name ' + ${domain.subject}"></h1>
+	<h2 th:text="'Script name '+ ${script.name}"></h2>
+	<!-- 	<p></p>
 	<p th:text="'debug: toRead= '+${script.toRead}"></p>
 	<p th:text="'debug: toEdit= '+${script.toEdit}"></p>
 	<p th:text="'debug: toRun= '+${script.toRun}"></p>
-	<p th:text="'debug: onlyAdmin= '+${script.onlyAdmin}"></p>
-	
-	
+	<p th:text="'debug: onlyAdmin= '+${script.onlyAdmin}"></p> -->
+
+
 
 	<div th:switch="${script.toRead}">
+		<p>Command</p>
 		<p th:case="true">
 		<div th:switch="${script.toEdit}">
 			<p th:case="true">
-				<textarea rows="10" cols="100" th:text="${script.command}"></textarea>
+				<textarea rows="10" cols="100" name="command" th:text="${script.command}"></textarea>
 			</p>
 			<p th:case="false">
 				<textarea readonly="readonly" rows="5" cols="100"
@@ -32,19 +33,40 @@
 	</div>
 
 	<div>
-		<form th:action="'/script/run' + '/' + ${domain.subject} + '/' + ${script.name}" method="get">
-			<input type="submit" value="Run Script on server" th:disabled="!${script.toRun}"/>
+		<form th:action="'/script/run'" method="post">
+			<input type="hidden" name="subject" th:value="${domain.subject}" /> <input
+				type="hidden" name="name" th:value="${script.name}" /> <input
+				type="submit" value="Run Script on server"
+				th:disabled="!${script.toRun}" />
 		</form>
 
-<!-- 		<button th:action="'/script/run' + '/' + ${domain.subject} + '/' + ${script.name}" type="button" th:disabled="!${script.toRun}" >Run
+		<!-- 		<button th:action="'/script/run' + '/' + ${domain.subject} + '/' + ${script.name}" type="button" th:disabled="!${script.toRun}" >Run
 			Script on server</button> -->
 	</div>
-		<div>
-			<form th:action="'/script/save/' + ${domain.subject} + '/' + ${script.name}" method="get">
-				<input type="submit" value="Save Script on server" th:disabled="!${script.toEdit}"/>
-			</form>
+	<div>
+		<form
+			th:action="'/script/save'"
+			method="post">
+			<input type="hidden" name="subject" th:value="${domain.subject}" /> 
+			<input type="hidden" name="name" th:value="${script.name}" />			
+			 <input
+				type="submit" value="Save Script on server"
+				th:disabled="!${script.toEdit}" />
+		</form>
 	</div>
-<p>Click <a th:href="@{/user}">here</a> to see User.</p>
+
+	<div th:if="${binput}">
+		<p>Input Logs</p>
+		<textarea readonly="readonly" rows="5" cols="100" th:text="${input}"></textarea>
+	</div>
+	<div th:if="${berror}">
+		<p>Error Logs</p>
+		<textarea readonly="readonly" rows="5" cols="100" th:text="${error}"></textarea>
+	</div>
+
+	<p>
+		Click <a th:href="@{/user}">here</a> to see User.
+	</p>
 
 </body>
 </html>

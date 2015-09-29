@@ -5,7 +5,6 @@
  */
 package p.lodz.pl.spjava.sdudkiewicz.models;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -27,39 +25,35 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Domain {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @NotNull
-    @Column(unique = true)
-    private String subject;
-    
-    private Boolean busy;
-    
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "mtom",
-            joinColumns = @JoinColumn(name = "domain_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	@NotNull
+	@Column(unique = true)
+	private String subject;
 
+	private Boolean busy;
 
-    public Domain() {
-    }
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "mtom", joinColumns = @JoinColumn(name = "domain_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private Set<User> users;
 
+	public Domain() {
+	}
 
-    public Domain( String subject) {
-        this.subject = subject;
-    }
+	public Domain(String subject) {
+		this.subject = subject;
+	}
 
-    public String getSubject() {
-        return subject;
-    }
+	public String getSubject() {
+		return subject;
+	}
 
-    public Set<User> getUsers() {
-        return users;
-    }
+	public Set<User> getUsers() {
+		return users;
+	}
 
-    public Boolean getBusy() {
+	public Boolean getBusy() {
 		return busy;
 	}
 
@@ -67,14 +61,9 @@ public class Domain {
 		this.busy = busy;
 	}
 
-
 	@Override
-    public String toString() {
-        return "Domain{" + "id=" + id + ", subject=" + subject + '}';
-    }
-    
-    
-    
-    
+	public String toString() {
+		return "Domain{" + "id=" + id + ", subject=" + subject + '}';
+	}
 
 }
