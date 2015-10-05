@@ -8,17 +8,30 @@
 <body>
 	<h1>Welcome Admin</h1>
 	<p th:text="'Your id: ' + ${name}" />
+	<h1>Add Domain</h1>
+	<div>
+		<form th:action="'/domains/'" method="post">
+			Domain: <input type="text" name="domain" /> 
+			<input type="hidden" name="remove" value = "false"/>
+			<input type="submit" value="Add" />
+		</form>
+	</div>
 	<h1>All Doamins</h1>
 	<table>
 		<tbody th:remove="all-but-first">
 			<tr th:each="domain : ${domains}">
-				<td><a th:href="@{'/domain/'+${domain.subject}}"
-					th:text="${domain.subject}"></a></td>
+				<td><a th:href="@{'/domain/'+${domain.subject}}" th:text="${domain.subject}"></a></td>
+				<td><form th:action="'/domains/'" method="post">
+					<input type="hidden" name="domain" th:value = "${domain.subject}"/>
+					<input type="hidden" name="remove" value = "true"/>
+					<input type="submit" value="Remove" />
+				</form></td>
 			</tr>
+
 
 		</tbody>
 	</table>
-
+	<p>Click <a th:href="@{/}">here</a> to see Home.</p>
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Sign Out" />
 	</form>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Remote Edit File</title>
+<meta charset="UTF-8"/>
+</head>
+<body>
+
+	<h1 th:text="'Domain ' + ${domain.subject} "></h1>
+	<h2 th:text="'Edit File ' + ${script.name} "></h2>
+
+	<form th:action="'/script/file'" method="post">
+		<textarea rows="10" cols="100" name="text" th:text="${text}"></textarea>
+		<input type="hidden" name="subject" th:value="${domain.subject}" /> 
+		<input type="hidden" name="scriptName" th:value="${script.name}" /> 
+		<p/>
+		<input type="submit" value="Save file (override)" />
+	</form>
+	<p>
+		Click <a th:href="@{/user}">here</a> to see User.
+	</p>
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign Out" />
+	</form>
+</body>
+</html>

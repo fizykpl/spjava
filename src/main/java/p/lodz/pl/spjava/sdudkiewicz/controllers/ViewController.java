@@ -67,59 +67,6 @@ public class ViewController {
 
 	}
 
-	@RequestMapping(value = "/script/{subject}/{name}", method = RequestMethod.GET)
-	public String scriptShow(@PathVariable String subject,
-			@PathVariable String name, Model model, Principal principal) {
-		LOGGER.info("/script/" + subject + "/" + name);
-		Script script = scriptRepository.findByName(name);
-		Domain domain = domainRepository.findBySubject(subject);
-		model.addAttribute("script", script);
-		model.addAttribute("domain", domain);
-		return "script";
-
-	}
-
-	@RequestMapping(value = "/script/run", method = RequestMethod.POST)
-	public String scriptRun(@RequestParam String subject,
-			@RequestParam String name, Model model, Principal principal) {
-		LOGGER.info("/script/" + subject + "/" + name);
-		Script script = scriptRepository.findByName(name);
-		Domain domain = domainRepository.findBySubject(subject);
-		model.addAttribute("domain", domain);
-		model.addAttribute("script", script);
-
-		Callable<ProcessStream> callable = new Processing(script.getCommand());
-		Future<ProcessStream> future = executor.submit(callable);
-		ProcessStream pr = null;
-		try {
-			pr = future.get();
-			model.addAttribute("binput", pr.isbInput());
-			model.addAttribute("berror", pr.isbError());
-			model.addAttribute("input", pr.getInput());
-			model.addAttribute("error", pr.getError());
-
-		} catch (InterruptedException | ExecutionException e1) {
-			e1.printStackTrace();
-		}
-
-		return "script";
-
-	}
-
-	@RequestMapping(value = "/script/save", method = RequestMethod.POST)
-	public String scriptSave(@RequestParam String subject,
-			@RequestParam String name, @RequestParam String command,
-			Model model, Principal principal) {
-		LOGGER.info("/script/" + subject + "/" + name);
-		LOGGER.info(command);
-		Script script = scriptRepository.findByName(name);
-		script.setCommand(command);
-		scriptRepository.save(script);
-		Domain domain = domainRepository.findBySubject(subject);
-		model.addAttribute("domain", domain);
-		model.addAttribute("script", script);
-		return "script";
-	}
 
 	private String toUser(Model model, Principal principal) {
 		String name = principal.getName();

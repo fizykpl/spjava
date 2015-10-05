@@ -2,31 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>USER PAGE</title>
-<h1>Welcome</h1>
-<p th:text="'Your id: ' + ${name}" />
 <meta charset="utf-8" />
 </head>
 <body>
-	<h2>Your Domians</h2>
+	<h1>Welcome</h1>
+	<p th:text="'Your id: ' + ${name}" />
+	<h2>Your script on domains</h2>
 	<table>
 		<tbody th:remove="all-but-first">
 			<tr th:each="domain : ${domains}">
 				<td><a th:text="${domain.subject}"></a></td>
-
-
 				<td th:each="script : ${scripts}">
-					<form th:action="'/script/' + ${domain.subject} + '/' + ${script.name}" method="get">
-						<input type="submit" th:value="${script.name}"/>
-					</form>
+					<div th:switch="${script.fileExist}">
+						<form th:case="false" th:action="'/script/' + ${domain.subject} + '/' + ${script.name}" method="get">
+							<input type="submit" th:value="${script.name}"/>
+						</form>
+					</div>
 				</td>
 
 			</tr>
 
 		</tbody>
 	</table>
+	<h2>Your files on domains</h2>
+	<table>
+		<tbody th:remove="all-but-first">
+			<tr th:each="domain : ${domains}">
+				<td><a th:text="${domain.subject}"></a></td>
+				<td th:each="script : ${scripts}">
+					<div th:switch="${script.fileExist}">
+						<form th:case="true" th:action="'/script/file'" method="post">
+							<input type="hidden" th:name="text" th:value="''"/>
+							<input type="hidden" th:name="subject" th:value="${domain.subject}"/>
+							<input type="hidden" th:name="scriptName" th:value="${script.name}"/>
+							<input type="submit" th:value="${script.name}"/>
+						</form>
+					</div>
+				</td>
 
+			</tr>
+
+		</tbody>
+	</table>
 	<p>
-	<p>Click <a th:href="@{/home}">here</a> to see Home.</p>
+	<p>Click <a th:href="@{/}">here</a> to see Home.</p>
 	<form th:action="@{/logout}" method="post">
 		<input type="submit" value="Sign Out" />
 	</form>

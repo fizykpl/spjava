@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Insert title here</title>
+<title>Script</title>
 </head>
 <body>
 	<h1 th:text="'Domain name ' + ${domain.subject}"></h1>
@@ -27,31 +27,24 @@
 					th:text="${script.command}"></textarea>
 			</p>
 		</div>
-
 		</p>
 		<p th:case="false">Script not to read</p>
 	</div>
 
 	<div>
 		<form th:action="'/script/run'" method="post">
-			<input type="hidden" name="subject" th:value="${domain.subject}" /> <input
-				type="hidden" name="name" th:value="${script.name}" /> <input
-				type="submit" value="Run Script on server"
-				th:disabled="!${script.toRun}" />
+			<input type="hidden" name="subject" th:value="${domain.subject}" /> 
+			<input type="hidden" name="name" th:value="${script.name}" /> 
+			<input type="submit" value="Run Script on server" th:disabled="!${script.toRun}" />
 		</form>
 
-		<!-- 		<button th:action="'/script/run' + '/' + ${domain.subject} + '/' + ${script.name}" type="button" th:disabled="!${script.toRun}" >Run
-			Script on server</button> -->
 	</div>
-	<div>
-		<form
-			th:action="'/script/save'"
-			method="post">
+	
+	<div th:switch="${script.fileExist}">
+		<form th:case="true" th:action="'/script/file'" method="post">
 			<input type="hidden" name="subject" th:value="${domain.subject}" /> 
 			<input type="hidden" name="name" th:value="${script.name}" />			
-			 <input
-				type="submit" value="Save Script on server"
-				th:disabled="!${script.toEdit}" />
+			<input type="submit" value="Edit file" th:disabled="!${script.toEdit}" />
 		</form>
 	</div>
 

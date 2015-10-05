@@ -6,6 +6,7 @@
 package p.lodz.pl.spjava.sdudkiewicz.controllers;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.models.User;
@@ -44,11 +46,28 @@ public class DomainViewController {
 	@RequestMapping(value = "/domains", method = RequestMethod.GET)
 	public String domains(Model model, Principal principal) {
 
+		domainsMain(model, principal);
+		return "domains";
+	}
+	
+	@RequestMapping(value = "/domains", method = RequestMethod.POST)
+	public String addDomains(@RequestParam String domain, @RequestParam String remove ,Model model, Principal principal) {
+		if(remove.equals("true")){
+			domainRepository.delete(domainRepository.findBySubject(domain));
+			
+		}else{
+			domainRepository.save(new Domain(domain));
+			
+		}
+		domainsMain(model, principal);
+		return "domains";
+	}
+
+	private void domainsMain(Model model, Principal principal) {
 		List<Domain> domains = (List<Domain>) domainRepository.findAll();
 
 		model.addAttribute("domains", domains);
 		model.addAttribute("name", principal.getName());
-		return "domains";
 	}
 
 	@RequestMapping(value = "/domain/{subject}", method = RequestMethod.GET)
@@ -60,6 +79,42 @@ public class DomainViewController {
 		Set<User> userInSubject = domain.getUsers();
 		List<User> userNotInSubject = (List<User>) userRepository.findAll();
 		userNotInSubject.removeAll(userInSubject);
+
+		model.addAttribute("userToAdd", userNotInSubject);
+		model.addAttribute("userToRemove", userInSubject);
+		model.addAttribute("domain", domain);
+		return "domain";
+	}
+
+	@RequestMapping(value = "/domain/{subject}", method = RequestMethod.POST)
+	public String showFilerDomain(@RequestParam String filter,
+			@PathVariable String subject, Model model, Principal principal) {
+		LOGGER.info("/domain/" + subject);
+		LOGGER.info("filter =" + filter );
+		Domain domain = domainRepository.findBySubject(subject);
+
+		Set<User> userInSubject = domain.getUsers();
+		List<User> userNotInSubject = (List<User>) userRepository.findAll();
+		userNotInSubject.removeAll(userInSubject);
+
+		if (filter.length() > 2) {
+			List<User> filterUserInSubject = new ArrayList<User>();
+			List<User> filterUserNotInSubject = new ArrayList<User>();
+			for (User u : userInSubject) {
+				if (u.getCn().toLowerCase().contains(filter.toLowerCase())) {
+					filterUserInSubject.add(u);
+				}
+			}
+			for (User u : userNotInSubject) {
+				if (u.getCn().toLowerCase().contains(filter.toLowerCase())) {
+					filterUserNotInSubject.add(u);
+				}
+			}
+			model.addAttribute("userToAdd", filterUserNotInSubject);
+			model.addAttribute("userToRemove", filterUserInSubject);
+			model.addAttribute("domain", domain);
+			return "domain";
+		}
 
 		model.addAttribute("userToAdd", userNotInSubject);
 		model.addAttribute("userToRemove", userInSubject);

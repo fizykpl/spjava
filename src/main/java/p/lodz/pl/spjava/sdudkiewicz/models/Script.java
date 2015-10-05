@@ -37,6 +37,17 @@ public class Script {
 
 	@NotNull
 	private Boolean toRun;
+	
+	@NotNull
+	private Boolean fileExist;
+
+	public Boolean getFileExist() {
+		return fileExist;
+	}
+
+	public void setFileExist(Boolean fileExist) {
+		this.fileExist = fileExist;
+	}
 
 	public String getName() {
 		return name;

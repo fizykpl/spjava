@@ -11,6 +11,13 @@
 	</h1>
 
 	<table>
+
+		<div>
+			<form th:action="'/domain/'+${domain.subject}" method="post">
+				Filter: <input type="text" name="filter"/>
+				<input type="submit" value="Search"/>
+			</form>
+		</div>
 		<tbody th:remove="all-but-first">
 			<tr th:each="user : ${userToAdd}">
 				<td><a th:text="${user.cn}"></a></td>
@@ -19,8 +26,6 @@
 						method="get">
 						<input type="submit" value="Add" />
 					</form></td>
-
-
 			</tr>
 
 		</tbody>
