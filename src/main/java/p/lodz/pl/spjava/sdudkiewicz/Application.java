@@ -13,13 +13,17 @@ import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
 import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+public class Application   implements CommandLineRunner {
+//	public class Application extends SpringBootServletInitializer  implements CommandLineRunner {
 
 	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
 	DomainRepository domainRepository;
+        
+        @Autowired
+        UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -28,11 +32,11 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 
-		List<User> users = UsersUtils.getUsers();
-		List<User> findAll = (List<User>) userRepository.findAll();
+            List<User> users = UsersUtils.getUsers();
+            List<User> findAll = (List<User>) userRepository.findAll();
 
-		boolean removeAll = users.removeAll(findAll);
-		userRepository.save(users);
+            boolean removeAll = users.removeAll(findAll);
+            userRepository.save(users);
 	}
 
 }

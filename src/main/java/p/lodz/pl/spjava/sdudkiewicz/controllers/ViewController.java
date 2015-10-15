@@ -7,24 +7,16 @@ package p.lodz.pl.spjava.sdudkiewicz.controllers;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import p.lodz.pl.spjava.sdudkiewicz.ProcessStream;
-import p.lodz.pl.spjava.sdudkiewicz.Processing;
-import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.models.Script;
 import p.lodz.pl.spjava.sdudkiewicz.models.User;
 import p.lodz.pl.spjava.sdudkiewicz.repository.AdminRepository;

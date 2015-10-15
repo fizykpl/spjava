@@ -22,9 +22,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class DatabaseConfig {
 
-	// ------------------------
-	// PUBLIC METHODS
-	// ------------------------
+	@Autowired
+	private Environment env;
+	
+	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
+	private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
 	/**
 	 * DataSource definition for database connection. Settings are read from the
@@ -93,17 +98,5 @@ public class DatabaseConfig {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
 
-	// ------------------------
-	// PRIVATE FIELDS
-	// ------------------------
 
-	@Autowired
-	private Environment env;
-
-	@Autowired
-	private DataSource dataSource;
-
-	@Autowired
-	private LocalContainerEntityManagerFactoryBean entityManagerFactory;
-
-} // class DatabaseConfig
+}

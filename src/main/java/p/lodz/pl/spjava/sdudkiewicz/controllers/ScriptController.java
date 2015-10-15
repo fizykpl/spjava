@@ -120,9 +120,9 @@ public class ScriptController {
 		Domain domain = domainRepository.findBySubject(subject);
 		String textFromFile;
 		if(text.equals("")){
-			textFromFile = readFromFile(script);
+			textFromFile = readFromFile(script, subject);
 		}else{
-			textFromFile = writeToFile(script, text);
+			textFromFile = writeToFile(script, text, subject);
 		}
 		model.addAttribute("domain", domain);
 		model.addAttribute("script", script);
@@ -130,9 +130,10 @@ public class ScriptController {
 		return "fileEdit";
 	}
 
-	private String writeToFile(Script script, String text) {
+	private String writeToFile(Script script, String subject, String text) {
+            String fileName = subjectFile(script, subject);
 		try {
-			FileUtils.writeStringToFile(new File(script.getCommand()), text);
+			FileUtils.writeStringToFile(new File(fileName), text);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -140,10 +141,11 @@ public class ScriptController {
 		return text;
 	}
 
-	private String readFromFile(Script script) {
+	private String readFromFile(Script script, String subject) {
+                String fileName = subjectFile(script, subject);
 		String out = new String();
 		try {
-			List<String> list = FileUtils.readLines(new File(script.getCommand()));
+			List<String> list = FileUtils.readLines(new File(fileName));
 			StringBuffer sb = new StringBuffer();
 			for (String line : list) {
 				sb.append(line + "\n");
@@ -155,5 +157,11 @@ public class ScriptController {
 		}
 		return out;
 	}
+
+    private String subjectFile(Script script, String subject) {
+        String out = script.getCommand();
+        out = out.replace("{subject}", subject);
+        return out;
+    }
 	
 }

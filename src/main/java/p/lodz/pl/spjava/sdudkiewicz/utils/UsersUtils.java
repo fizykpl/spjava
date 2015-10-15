@@ -15,7 +15,12 @@ import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+
 import p.lodz.pl.spjava.sdudkiewicz.models.User;
+import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
 
 /**
  *
@@ -27,6 +32,7 @@ public class UsersUtils {
 			.getName());
 
 	public static List<User> getUsers() {
+		
 		List<User> users = new ArrayList<User>();
 		Hashtable env = new Hashtable();
 
@@ -85,4 +91,11 @@ public class UsersUtils {
 		return users;
 
 	}
+        
+    public static void refreshUsers() {
+            List<User> users = UsersUtils.getUsers();
+            List<User> findAll = (List<User>) userRepository.findAll();
+            boolean removeAll = users.removeAll(findAll);
+            userRepository.save(users);
+    }
 }
