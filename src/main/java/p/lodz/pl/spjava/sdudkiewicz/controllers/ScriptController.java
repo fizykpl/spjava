@@ -130,7 +130,7 @@ public class ScriptController {
 		return "fileEdit";
 	}
 
-	private String writeToFile(Script script, String subject, String text) {
+	private String writeToFile(Script script, String text,String subject) {
             String fileName = subjectFile(script, subject);
 		try {
 			FileUtils.writeStringToFile(new File(fileName), text);
