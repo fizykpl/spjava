@@ -1,8 +1,15 @@
 package p.lodz.pl.spjava.sdudkiewicz.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.naming.Context;
@@ -19,32 +26,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
+import com.google.common.collect.Sets;
+
+import p.lodz.pl.spjava.sdudkiewicz.models.Admin;
+import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.models.User;
+import p.lodz.pl.spjava.sdudkiewicz.repository.AdminRepository;
+import p.lodz.pl.spjava.sdudkiewicz.repository.DomainRepository;
 import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
 
-/**
- *
- * @author Sylwester
- */
 public class UsersUtils {
+	
 
+	
+	@Autowired
+	static
+	UserRepository userRepository;
+	
+	@Autowired
+	static
+	AdminRepository adminRepository; 
+	
+	@Autowired
+	static
+	DomainRepository domainRepository; 
+	
 	private static final Logger LOGGER = Logger.getLogger(UsersUtils.class
 			.getName());
 
 	public static List<User> getUsers() {
 		
-		List<User> users = new ArrayList<User>();
-		Hashtable env = new Hashtable();
 
-		env.put(Context.INITIAL_CONTEXT_FACTORY,
-				"com.sun.jndi.ldap.LdapCtxFactory");
-		// env.put(Context.PROVIDER_URL,
-		// "ldap://127.0.0.1:33389/dc=springframework,dc=org");
-		env.put(Context.PROVIDER_URL, "ldap://studdev.zsk.p.lodz.pl:389");
-		env.put(Context.SECURITY_AUTHENTICATION, "simple");
-		env.put(Context.SECURITY_PRINCIPAL,
-				"ou=list,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL");
-		env.put(Context.SECURITY_CREDENTIALS, "listerine");
+		
+		List<User> users = new ArrayList<User>();
+		Hashtable<String,String> env = getLdapProperties();
+		
 		DirContext ctx = null;
 		NamingEnumeration results = null;
 		try {
@@ -52,10 +68,7 @@ public class UsersUtils {
 			SearchControls controls = new SearchControls();
 			controls.setReturningObjFlag(true);
 			controls.setSearchScope(SearchControls.ONELEVEL_SCOPE);
-			// results = ctx.search("", "objectClass=person", controls);
-			results = ctx
-					.search("ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL",
-							"objectClass=*", controls);
+			results = ctx.search(env.get("NAME_SEARCH"),env.get("FILTER"), controls);
 			while (results.hasMore()) {
 				SearchResult searchResult = (SearchResult) results.next();
 				Attributes attributes = searchResult.getAttributes();
@@ -91,6 +104,28 @@ public class UsersUtils {
 		return users;
 
 	}
+
+	public static Hashtable<String, String> getLdapProperties() {
+		File file = new File("src/main/resources/ldap.properties");
+		String path = file.getAbsolutePath();
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream(file));
+		} catch (IOException e1) {
+			LOGGER.warning(e1.getMessage());
+			e1.printStackTrace();
+		}
+		Hashtable<String, String> env = new Hashtable();
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+		env.put(Context.PROVIDER_URL, prop.getProperty("PROVIDER_URL"));
+		env.put(Context.SECURITY_AUTHENTICATION, prop.getProperty("SECURITY_AUTHENTICATION"));
+		env.put(Context.SECURITY_PRINCIPAL, prop.getProperty("SECURITY_PRINCIPAL"));
+		env.put(Context.SECURITY_CREDENTIALS, prop.getProperty("SECURITY_CREDENTIALS"));
+		
+		env.put("NAME_SEARCH", prop.getProperty("NAME_SEARCH"));
+		env.put("FILTER", prop.getProperty("FILTER"));
+		return env;
+	}
         
     public static void refreshUsers() {
             List<User> users = UsersUtils.getUsers();
@@ -98,4 +133,6 @@ public class UsersUtils {
             boolean removeAll = users.removeAll(findAll);
             userRepository.save(users);
     }
+    
+
 }

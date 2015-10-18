@@ -25,10 +25,6 @@ import p.lodz.pl.spjava.sdudkiewicz.repository.AdminRepository;
 import p.lodz.pl.spjava.sdudkiewicz.repository.DomainRepository;
 import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
 
-/**
- *
- * @author sylwekabc06
- */
 @Controller
 public class DomainViewController {
 

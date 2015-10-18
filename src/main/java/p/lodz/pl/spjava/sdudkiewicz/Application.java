@@ -13,7 +13,7 @@ import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
 import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 @SpringBootApplication
-public class Application   implements CommandLineRunner {
+public class Application implements CommandLineRunner {
 //	public class Application extends SpringBootServletInitializer  implements CommandLineRunner {
 
 	@Autowired
@@ -22,8 +22,6 @@ public class Application   implements CommandLineRunner {
 	@Autowired
 	DomainRepository domainRepository;
         
-        @Autowired
-        UserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

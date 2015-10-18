@@ -17,7 +17,6 @@ public class ProcessStream {
 			this.error = IOUtils.toString(process.getErrorStream(), "UTF-8");
 			bError = !error.isEmpty();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -14,16 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-/**
- * Represents an User for this web application.
- */
+
 @Entity
 @Table(name = "users")
 public class User {
-
-	// ------------------------
-	// PRIVATE FIELDS
-	// ------------------------
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,10 +31,6 @@ public class User {
 
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "users", cascade = CascadeType.PERSIST)
 	private Set<Domain> domains;
-
-	// ------------------------
-	// PUBLIC METHODS
-	// ------------------------
 
 	public User() {
 	}
@@ -81,7 +71,6 @@ public class User {
 	public Set<Domain> getDomains() {
 		if (null == domains) {
 			return new HashSet<>();
-
 		}
 		{
 			return domains;
@@ -118,4 +107,4 @@ public class User {
 		return "User{" + "id=" + id + ", cn=" + cn + ", uid=" + uid + '}';
 	}
 
-} // class User
+}
