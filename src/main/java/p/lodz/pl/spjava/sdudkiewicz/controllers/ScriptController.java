@@ -131,7 +131,7 @@ public class ScriptController {
 	}
 
 	private String writeToFile(Script script, String text,String subject) {
-            String fileName = subjectFile(script, subject);
+        String fileName = subjectFile(script, subject);
 		try {
 			FileUtils.writeStringToFile(new File(fileName), text);
 		} catch (IOException e) {
@@ -142,7 +142,7 @@ public class ScriptController {
 	}
 
 	private String readFromFile(Script script, String subject) {
-                String fileName = subjectFile(script, subject);
+        String fileName = subjectFile(script, subject);
 		String out = new String();
 		try {
 			List<String> list = FileUtils.readLines(new File(fileName));

@@ -3,6 +3,7 @@ package p.lodz.pl.spjava.sdudkiewicz.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -106,24 +107,18 @@ public class UsersUtils {
 	}
 
 	public static Hashtable<String, String> getLdapProperties() {
-		File file = new File("src/main/resources/ldap.properties");
-		String path = file.getAbsolutePath();
-		Properties prop = new Properties();
-		try {
-			prop.load(new FileInputStream(file));
-		} catch (IOException e1) {
-			LOGGER.warning(e1.getMessage());
-			e1.printStackTrace();
-		}
-		Hashtable<String, String> env = new Hashtable();
-		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-		env.put(Context.PROVIDER_URL, prop.getProperty("PROVIDER_URL"));
-		env.put(Context.SECURITY_AUTHENTICATION, prop.getProperty("SECURITY_AUTHENTICATION"));
-		env.put(Context.SECURITY_PRINCIPAL, prop.getProperty("SECURITY_PRINCIPAL"));
-		env.put(Context.SECURITY_CREDENTIALS, prop.getProperty("SECURITY_CREDENTIALS"));
 		
-		env.put("NAME_SEARCH", prop.getProperty("NAME_SEARCH"));
-		env.put("FILTER", prop.getProperty("FILTER"));
+		
+		ResourceBundle rb = ResourceBundle.getBundle("ldap");
+		Hashtable<String, String> env = new Hashtable<String, String>();
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+		env.put(Context.PROVIDER_URL, rb.getString("PROVIDER_URL"));
+		env.put(Context.SECURITY_AUTHENTICATION, rb.getString("SECURITY_AUTHENTICATION"));
+		env.put(Context.SECURITY_PRINCIPAL, rb.getString("SECURITY_PRINCIPAL"));
+		env.put(Context.SECURITY_CREDENTIALS, rb.getString("SECURITY_CREDENTIALS"));
+		
+		env.put("NAME_SEARCH", rb.getString("NAME_SEARCH"));
+		env.put("FILTER", rb.getString("FILTER"));
 		return env;
 	}
         
