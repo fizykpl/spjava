@@ -1,16 +1,9 @@
 package p.lodz.pl.spjava.sdudkiewicz.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.naming.Context;
@@ -24,13 +17,7 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
-import com.google.common.collect.Sets;
-
-import p.lodz.pl.spjava.sdudkiewicz.models.Admin;
-import p.lodz.pl.spjava.sdudkiewicz.models.Domain;
 import p.lodz.pl.spjava.sdudkiewicz.models.User;
 import p.lodz.pl.spjava.sdudkiewicz.repository.AdminRepository;
 import p.lodz.pl.spjava.sdudkiewicz.repository.DomainRepository;
@@ -41,7 +28,6 @@ public class UsersUtils {
 
 	
 	@Autowired
-	static
 	UserRepository userRepository;
 	
 	@Autowired
@@ -122,12 +108,5 @@ public class UsersUtils {
 		return env;
 	}
         
-    public static void refreshUsers() {
-            List<User> users = UsersUtils.getUsers();
-            List<User> findAll = (List<User>) userRepository.findAll();
-            boolean removeAll = users.removeAll(findAll);
-            userRepository.save(users);
-    }
-    
 
 }

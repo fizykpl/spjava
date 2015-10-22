@@ -24,6 +24,7 @@ import p.lodz.pl.spjava.sdudkiewicz.models.User;
 import p.lodz.pl.spjava.sdudkiewicz.repository.AdminRepository;
 import p.lodz.pl.spjava.sdudkiewicz.repository.DomainRepository;
 import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
+import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 @Controller
 public class DomainViewController {
@@ -44,6 +45,12 @@ public class DomainViewController {
 
 		domainsMain(model, principal);
 		return "domains";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String updateUsers(Model model, Principal principal){
+		refreshUsers();
+		return domains(model,principal);
 	}
 	
 	@RequestMapping(value = "/domains", method = RequestMethod.POST)
@@ -170,5 +177,11 @@ public class DomainViewController {
 		findByUid.getDomains().remove(findBySubject);
 		domainRepository.save(findBySubject);
 	}
-
+	
+    public void refreshUsers() {
+        List<User> users = UsersUtils.getUsers();
+        List<User> findAll = (List<User>) userRepository.findAll();
+        boolean removeAll = users.removeAll(findAll);
+        userRepository.save(users);
+}
 }

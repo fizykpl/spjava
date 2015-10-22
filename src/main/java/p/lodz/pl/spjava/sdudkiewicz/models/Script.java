@@ -1,5 +1,8 @@
 package p.lodz.pl.spjava.sdudkiewicz.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,10 +14,6 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Script {
-
-	// ------------------------
-	// PRIVATE FIELDS
-	// ------------------------
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,6 +75,27 @@ public class Script {
 	public String getCommand() {
 		return command;
 	}
+	public String getCommand(String subject, String user) {
+		Date currentDate = new Date();
+		if(null != subject && !subject.isEmpty()){
+			command = command.replace("{subject}", subject);
+		}
+		
+		if(null != user && !user.isEmpty()){
+			command = command.replace("{user}", user);
+		}
+		
+		if(null != command && command.contains("{date}")){
+			SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
+			command = command.replace("{date}", date.format(currentDate));
+		}
+		
+		if(null != command && command.contains("{time}")){
+			SimpleDateFormat time = new SimpleDateFormat("HH:MM:SS");
+			command = command.replace("{time}", time.format(currentDate));
+		}
+		return command;
+	}
 
 	public void setCommand(String command) {
 		this.command = command;
@@ -112,4 +132,4 @@ public class Script {
 				+ ", toEdit=" + toEdit + ", toRun=" + toRun + "]";
 	}
 
-} // class Script
+} 

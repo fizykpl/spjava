@@ -79,7 +79,7 @@ public class ScriptController {
 		model.addAttribute("domain", domain);
 		model.addAttribute("script", script);
 
-		Callable<ProcessStream> callable = new Processing(script.getCommand());
+		Callable<ProcessStream> callable = new Processing(script.getCommand(subject,principal.getName()));
 		Future<ProcessStream> future = executor.submit(callable);
 		ProcessStream pr = null;
 		try {
