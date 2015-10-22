@@ -107,6 +107,22 @@ public class UsersUtils {
 		env.put("FILTER", rb.getString("FILTER"));
 		return env;
 	}
+	
+	public static Hashtable<String, String> getUserProperties(String name, String password) {
+		
+		
+		ResourceBundle rb = ResourceBundle.getBundle("ldap");
+		Hashtable<String, String> env = new Hashtable<String, String>();
+		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+		env.put(Context.PROVIDER_URL, rb.getString("PROVIDER_URL"));
+		env.put(Context.SECURITY_AUTHENTICATION, rb.getString("SECURITY_AUTHENTICATION"));
+		env.put(Context.SECURITY_PRINCIPAL, name);
+		env.put(Context.SECURITY_CREDENTIALS, password);
+		
+		env.put("NAME_SEARCH", rb.getString("NAME_SEARCH"));
+		env.put("FILTER", rb.getString("FILTER"));
+		return env;
+	}
         
 
 }

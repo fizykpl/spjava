@@ -5,6 +5,8 @@ import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.directory.SearchControls;
@@ -29,12 +31,20 @@ public class LdapAuthenticationService implements AuthenticationService {
 		SearchControls controls = new SearchControls();
 		controls.setReturningObjFlag(true);
 		controls.setSearchScope(SearchControls.ONELEVEL_SCOPE);
-		controls.setCountLimit(1);
-		String filter = String.format("(uid=%s)(userPassword=%s)", uid,
-				password);
+		controls.setCountLimit(11);
+		String filter = String.format("(uid=%s)", uid);
+		String dn = "ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL";
 		NamingEnumeration<SearchResult> search = ctx
-				.search("ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL",
-						filter, controls);
-		return search.hasMore();
+				.search(dn,	filter, controls);
+		SearchResult next = search.next();		
+		
+		String name = next.getName()+"," +dn;
+		Hashtable<String, String> env =  UsersUtils.getUserProperties(name, password);
+		
+		// Create the initial context		
+		DirContext ctx = new InitialDirContext(env);
+		ctx.close();
+		return ctx != null;
+
 	}
 }

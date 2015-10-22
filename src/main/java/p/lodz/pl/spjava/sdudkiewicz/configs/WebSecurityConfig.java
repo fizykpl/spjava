@@ -30,15 +30,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/domain/*").hasRole("ADMIN").anyRequest()
 				.authenticated().and().csrf().and().exceptionHandling()
 				.accessDeniedPage("/permissionDenied").and().formLogin();
+		
 
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
-		LdapAuthenticationProvider bean = context
-				.getBean(LdapAuthenticationProvider.class);
+		LdapAuthenticationProvider bean = context.getBean(LdapAuthenticationProvider.class);
 		auth.authenticationProvider(bean);
+		
 	}
 
 }
