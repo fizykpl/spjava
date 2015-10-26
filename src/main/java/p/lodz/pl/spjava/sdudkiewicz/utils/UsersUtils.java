@@ -103,6 +103,7 @@ public class UsersUtils {
 		env.put(Context.SECURITY_PRINCIPAL, rb.getString("SECURITY_PRINCIPAL"));
 		env.put(Context.SECURITY_CREDENTIALS, rb.getString("SECURITY_CREDENTIALS"));
 		
+		env.put("FILTER_UID", rb.getString("FILTER_UID"));
 		env.put("NAME_SEARCH", rb.getString("NAME_SEARCH"));
 		env.put("FILTER", rb.getString("FILTER"));
 		return env;

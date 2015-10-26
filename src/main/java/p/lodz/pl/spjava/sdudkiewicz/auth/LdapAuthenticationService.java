@@ -28,14 +28,15 @@ public class LdapAuthenticationService implements AuthenticationService {
 
 	@Override
 	public boolean authenticate(String uid, String password) throws Exception {
+		Hashtable<String, String> ldapProperties = UsersUtils.getLdapProperties();
 		SearchControls controls = new SearchControls();
 		controls.setReturningObjFlag(true);
 		controls.setSearchScope(SearchControls.ONELEVEL_SCOPE);
 		controls.setCountLimit(11);
-		String filter = String.format("(uid=%s)", uid);
-		String dn = "ou=studenci,ou=Wydzial Fizyki Technicznej Informatyki i Matematyki Stosowanej,o=Politechnika Lodzka,c=PL";
-		NamingEnumeration<SearchResult> search = ctx
-				.search(dn,	filter, controls);
+		
+		String filter = String.format(ldapProperties.get("FILTER_UID"), uid);
+		String dn = ldapProperties.get("NAME_SEARCH");
+		NamingEnumeration<SearchResult> search = ctx.search(dn,	filter, controls);
 		SearchResult next = search.next();		
 		
 		String name = next.getName()+"," +dn;
