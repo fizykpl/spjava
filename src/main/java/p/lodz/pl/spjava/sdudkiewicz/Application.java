@@ -14,8 +14,8 @@ import p.lodz.pl.spjava.sdudkiewicz.repository.UserRepository;
 import p.lodz.pl.spjava.sdudkiewicz.utils.UsersUtils;
 
 @SpringBootApplication
-public class Application implements CommandLineRunner {
-//	public class Application extends SpringBootServletInitializer  implements CommandLineRunner {
+//public class Application implements CommandLineRunner { // Build to Spring Boot
+	public class Application extends SpringBootServletInitializer  implements CommandLineRunner { // Build to war file
 
 	@Autowired
 	UserRepository userRepository;
